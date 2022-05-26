@@ -34,19 +34,19 @@ class PgCron < Formula
   test do
     # Testing steps:
     # - create new temporary postgres database
-    system "pg_ctl", "initdb", "-D", testpath/"test" unless ENV["HOMEBREW_GITHUB_ACTIONS"]
+    system "pg_ctl", "initdb", "-D", testpath/"test"
 
     # - enable pg_cron in temporary database
-    File.write(testpath/"test/postgresql.conf", "\nshared_preload_libraries = 'pg_cron'\n", mode: "a+")
-    File.write(testpath/"test/postgresql.conf", "\nport = 5562\n", mode: "a+")
+    (testpath/"test/postgresql.conf").write("\nshared_preload_libraries = 'pg_cron'\n", mode: "a+")
+    (testpath/"test/postgresql.conf").write("\nport = 5562\n", mode: "a+")
 
     # - restart temporary postgres
-    system "pg_ctl", "start", "-D", testpath/"test", "-l", testpath/"log" unless ENV["HOMEBREW_GITHUB_ACTIONS"]
+    system "pg_ctl", "start", "-D", testpath/"test", "-l", testpath/"log"
 
     # - run "CREATE EXTENSION pg_cron;" in temp database
-    system "psql", "-p", "5562", "-c", "CREATE EXTENSION pg_cron;", "postgres" unless ENV["HOMEBREW_GITHUB_ACTIONS"]
+    system "psql", "-p", "5562", "-c", "CREATE EXTENSION pg_cron;", "postgres"
 
     # - shutdown temp postgres
-    system "pg_ctl", "stop", "-D", testpath/"test" unless ENV["HOMEBREW_GITHUB_ACTIONS"]
+    system "pg_ctl", "stop", "-D", testpath/"test"
   end
 end
