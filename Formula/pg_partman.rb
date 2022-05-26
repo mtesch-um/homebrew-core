@@ -11,6 +11,7 @@ class PgPartman < Formula
     system "make"
     (prefix/"lib/postgresql").install "src/pg_partman_bgw.so"
     (prefix/"share/postgresql/extension").install "pg_partman.control"
+    (prefix/"share/postgresql/extension").install Dir["sql/pg_partman--*.sql"]
     (prefix/"share/postgresql/extension").install Dir["updates/pg_partman--*.sql"]
   end
 
