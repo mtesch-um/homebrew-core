@@ -14,19 +14,6 @@ class PgCron < Formula
     (share/"postgresql/extension").install "pg_cron.control"
   end
 
-  def caveats
-    <<~EOS
-      To complete the installation, load pg_cron in postgresql.conf:
-        shared_preload_libraries = 'pg_cron'
-
-      Restart and then create the extension in the database:
-        -- run as superuser:
-        CREATE EXTENSION pg_cron;
-      For more details, read:
-        https://github.com/citusdata/pg_cron
-    EOS
-  end
-
   test do
     # Testing steps:
     # - create new temporary postgres database
