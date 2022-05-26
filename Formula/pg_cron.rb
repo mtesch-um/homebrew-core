@@ -9,13 +9,9 @@ class PgCron < Formula
 
   def install
     system "make"
-    (prefix/"lib/postgresql").install "pg_cron.so"
-    (prefix/"share/postgresql/extension").install "pg_cron--1.0.sql"
-    (prefix/"share/postgresql/extension").install "pg_cron--1.0--1.1.sql"
-    (prefix/"share/postgresql/extension").install "pg_cron--1.1--1.2.sql"
-    (prefix/"share/postgresql/extension").install "pg_cron--1.2--1.3.sql"
-    (prefix/"share/postgresql/extension").install "pg_cron--1.3--1.4.sql"
-    (prefix/"share/postgresql/extension").install "pg_cron.control"
+    (lib/"postgresql").install "pg_cron.so"
+    (share/"postgresql/extension").install Dir["pg_cron--*.sql"]
+    (share/"postgresql/extension").install "pg_cron.control"
   end
 
   def caveats
@@ -36,15 +32,16 @@ class PgCron < Formula
     # - create new temporary postgres database
     system "pg_ctl", "initdb", "-D", testpath/"test"
 
+    port = free_port
     # - enable pg_cron in temporary database
     (testpath/"test/postgresql.conf").write("\nshared_preload_libraries = 'pg_cron'\n", mode: "a+")
-    (testpath/"test/postgresql.conf").write("\nport = 5562\n", mode: "a+")
+    (testpath/"test/postgresql.conf").write("\nport =#{port}\n", mode: "a+")
 
     # - restart temporary postgres
     system "pg_ctl", "start", "-D", testpath/"test", "-l", testpath/"log"
 
     # - run "CREATE EXTENSION pg_cron;" in temp database
-    system "psql", "-p", "5562", "-c", "CREATE EXTENSION pg_cron;", "postgres"
+    system "psql", "-p", port.to_s, "-c", "CREATE EXTENSION pg_cron;", "postgres"
 
     # - shutdown temp postgres
     system "pg_ctl", "stop", "-D", testpath/"test"
