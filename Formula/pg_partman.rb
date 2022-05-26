@@ -22,8 +22,8 @@ class PgPartman < Formula
 
     port = free_port
     # - enable pg_partman in temporary database
-    File.write(testpath/"test/postgresql.conf", "\nshared_preload_libraries = 'pg_partman_bgw'\n", mode: "a+")
-    File.write(testpath/"test/postgresql.conf", "\nport = #{port}\n", mode: "a+")
+    (testpath/"test/postgresql.conf").write("\nshared_preload_libraries = 'pg_partman_bgw'\n", mode: "a+")
+    (testpath/"test/postgresql.conf").write("\nport = #{port}\n", mode: "a+")
 
     # - restart temporary postgres
     system "pg_ctl", "start", "-D", testpath/"test", "-l", testpath/"log"
