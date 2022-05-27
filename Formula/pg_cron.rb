@@ -21,8 +21,11 @@ class PgCron < Formula
 
     port = free_port
     # - enable pg_cron in temporary database
-    (testpath/"test/postgresql.conf").write("\nshared_preload_libraries = 'pg_cron'\n", mode: "a+")
-    (testpath/"test/postgresql.conf").write("\nport =#{port}\n", mode: "a+")
+    (testpath/"test/postgresql.conf").write <<~EOS, mode: "a+"
+   
+      shared_preload_libraries = 'pg_cron'
+      port = #{port}
+    EOS
 
     # - restart temporary postgres
     system "pg_ctl", "start", "-D", testpath/"test", "-l", testpath/"log"
