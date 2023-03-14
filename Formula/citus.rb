@@ -17,14 +17,14 @@ class Citus < Formula
   end
 
   depends_on "lz4"
-  depends_on "postgresql@14"
+  depends_on "postgresql@15"
   depends_on "readline"
   depends_on "zstd"
 
   uses_from_macos "curl"
 
   def postgresql
-    Formula["postgresql@14"]
+    Formula["postgresql@15"]
   end
 
   def install

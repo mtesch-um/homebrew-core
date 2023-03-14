@@ -15,10 +15,10 @@ class PgPartman < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "5bd167cc98893ee9ad7e30cd1b84b7939b3bde26ae4c53c2d5f44b72c4ce3de0"
   end
 
-  depends_on "postgresql@14"
+  depends_on "postgresql@15"
 
   def postgresql
-    Formula["postgresql@14"]
+    Formula["postgresql@15"]
   end
 
   def install

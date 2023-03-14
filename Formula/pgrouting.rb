@@ -26,10 +26,10 @@ class Pgrouting < Formula
   depends_on "cgal"
   depends_on "gmp"
   depends_on "postgis"
-  depends_on "postgresql@14"
+  depends_on "postgresql@15"
 
   def postgresql
-    Formula["postgresql@14"]
+    Formula["postgresql@15"]
   end
 
   def install

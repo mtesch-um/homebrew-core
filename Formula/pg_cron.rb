@@ -16,10 +16,10 @@ class PgCron < Formula
   end
 
   # upstream issue for running with pg@15, https://github.com/citusdata/pg_cron/issues/237
-  depends_on "postgresql@14"
+  depends_on "postgresql@15"
 
   def postgresql
-    Formula["postgresql@14"]
+    Formula["postgresql@15"]
   end
 
   def install

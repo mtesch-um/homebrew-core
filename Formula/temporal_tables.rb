@@ -17,7 +17,7 @@ class TemporalTables < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "65e9ba4630fb2c0db0d7296fec147daa643ec2ab8dad19a56107c1f41637a0fe"
   end
 
-  depends_on "postgresql@14"
+  depends_on "postgresql@15"
 
   # Fix for postgresql 11 compatibility:
   # https://github.com/arkhipov/temporal_tables/issues/38
@@ -41,7 +41,7 @@ class TemporalTables < Formula
   end
 
   def postgresql
-    Formula["postgresql@14"]
+    Formula["postgresql@15"]
   end
 
   def install
